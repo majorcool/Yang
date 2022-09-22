@@ -1,0 +1,6 @@
+n=input("请输入姓名:")
+b=input("请输入性别:")
+num=input("请输入手机号:")
+y=input("请输入颜值:")
+ck=input("请输入存款:")
+print(n,b,num,y,ck)

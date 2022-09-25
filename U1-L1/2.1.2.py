@@ -2,5 +2,5 @@
 alien_color = "green"
 if alien_color == "red" or alien_color == "yellow" :
     print("you kill the alien, you will gain 5 points")
-elif alien_color == "green" :
+else:
     print("you gain 10 points")

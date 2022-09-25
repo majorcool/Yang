@@ -13,11 +13,12 @@ elif a>=1 and a<=2 :
     print("幼儿")
 elif a>=3 and a<=12:
     print("儿童")
-elif a>=13 and a<=20 :
-    print("青春期")
-elif a>=15 and a<=24 :
-    print("年轻人")
-elif a>=18 and a <=64 :
-    print("成年人")
 else:
-    print("老人")
+    if a>=13 and a<=20 :
+        print("青春期")
+    if a>=15 and a<=24 :
+        print("年轻人")
+    if a>=18 and a <=64 :
+        print("成年人")
+    if a>65 :
+        print("老人")

@@ -2,12 +2,9 @@
 g=1
 s=1
 b=1
-for b in range(1,5):
-    print(b,end="")
+for g in range(1,5):
     for s in range(1,5):
-        print(s,end="")
-        for g in range(1,5):
-            print(g)
-            break
-        break
-        #不会
+        for b in range(1,5):
+            if g==s or s==b or b==g:
+                continue
+            print(g+s*10+b*100)

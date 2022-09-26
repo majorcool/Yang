@@ -9,6 +9,7 @@
 a = int(input("请输入年龄："))
 if a<1 :
     print("婴儿")
+
 elif a>=1 and a<=2 :
     print("幼儿")
 elif a>=3 and a<=12:

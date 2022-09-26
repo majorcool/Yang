@@ -2,9 +2,14 @@
 n = int(input("请输入数字:"))
 a=2
 print(n,end=" =")
-while n != 1:
+while n != 1 and n !=0:
     while n % a == 0 :
         n= n/a
         print(" %d"% a,end=" *")
+        if n==1:
+            break
     a=a+1
-print(" 1")
+if n!=0:
+    print(" 1")
+if n<=0:
+    print(" 0")

@@ -1,7 +1,7 @@
 while 1:
     n1 = float(input("数字1:"))
     n2 = float(input("数字2:"))
-    a = input("请输入算法:")
+    a = input("请输入算法(+-*/):")
     if a=="+":
         num=n1+n2
         print(num)

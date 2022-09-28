@@ -9,6 +9,9 @@ def num(n):
                 print(a,end="")
                 print(" * ",end="")
                 print(b,end=" = ")
-                print(n,end="  ")
+                if n>=10:
+                    print(n,end="  ")
+                else:
+                    print(n,end="   ")
             print("")
-num(3)
+num(9)

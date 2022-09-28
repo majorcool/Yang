@@ -2,5 +2,5 @@
 def make_shirt():
     s=int(input("尺码:"))
     t=input("请输入文字:")
-    print("尺码%d,文字%s"%(s,t))
+    return "尺码%d,文字%s"%(s,t)
 print(make_shirt())

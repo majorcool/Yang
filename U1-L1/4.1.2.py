@@ -23,27 +23,11 @@ print('\n')
 '''
 def aaa(n):
     intro_1 = 'hello world!'
-    print("a")
+    print(n)
     print('-------------')
     print('-- loading --')
     print('-------------')
     print('\n')
-aaa("n")
-
-def bbb(n):
-    intro_2 = "coding makes me happy!"
-    print("b")
-    print('-------------')
-    print('-- loading --')
-    print('-------------')
-    print('\n')
-bbb("n")
-
-def ccc(n):
-    intro_3 = 'i lied.'
-    print("c")
-    print('-------------')
-    print('-- loading --')
-    print('-------------')
-    print('\n')
-ccc("n")
+aaa("hello world!")
+aaa('coding makes me happy!')
+aaa('i lied.')

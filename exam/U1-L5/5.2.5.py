@@ -41,7 +41,7 @@ for i in range(0,len(h)):
     del h[i]
     h.insert(i,p)
 print(h)
-q=0
+q=0#不知为何不对
 for r in range(0,len(d)):
     for s in d[r]:
         q=q+s

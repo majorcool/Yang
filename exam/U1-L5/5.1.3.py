@@ -2,8 +2,12 @@
 # list_num = [1, 3, 4, 3, 7, 3, 9, 8, 6, 3]
 list=[1,3,4,3,7,3,9,8,6,3]
 n=list.count(3)
+g=[]
 for a in range(0,n):
     b=list.index(3)
-    print(b)
     list.remove(3)
+    list.insert(b,0)
+    print(b)
+for r in range(0,n):
+    list.remove(0)
 print(list)

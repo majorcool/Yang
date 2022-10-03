@@ -6,7 +6,7 @@ def nnn():
         if n%2!=0:
             s=(n+1)/2
             s=int(s)
-            list.insert(n,"0"*s)
+            list.insert(n,"0")
         else:
             p=n/2+1
             p=int(p)

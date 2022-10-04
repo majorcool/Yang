@@ -9,8 +9,9 @@
 # 再次修改心愿单，使地点按与字母顺序相反的顺序排列。打印心愿单，核实排列顺序确实变了
 travel_list=["beijing","shanghai","suzhou","hangzhou","tianjin"]
 print(travel_list)
-travel_list.sort()
-print(travel_list)
+travel_list2=travel_list.copy()
+travel_list2.sort()
+print(travel_list2)
 travel_list.sort(reverse=True)
 print(travel_list)
 travel_list.reverse()

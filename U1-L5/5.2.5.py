@@ -36,15 +36,15 @@ d=list(d)
 h=list(h)
 p=0
 for i in range(0,len(h)):
-    for o in d[i]:
+    for o in h[i]:
         p=p+o
     del h[i]
     h.insert(i,p)
 print(h)
-q=0#不知为何不对
+q=0
 for r in range(0,len(d)):
     for s in d[r]:
         q=q+s
     del d[r]
     d.insert(r,q)
-print(r)
+print(d)

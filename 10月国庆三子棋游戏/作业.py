@@ -49,7 +49,7 @@ def form(a,b):
             again=True
             return 1
         if b==4 and count[b]==" ":
-            t4="X"
+            f4="X"
             print("丨", o1, "丨", t2, "丨", t3, "丨", sep=" ")
             print("丨", f4, "丨", f5, "丨", s6, "丨", sep=" ")
             print("丨", s7, "丨", e8, "丨", n9, "丨", sep=" ")
@@ -239,7 +239,6 @@ print("丨 (7) 丨 (8) 丨 (9) 丨")
 print("")
 time.sleep(1)
 n=1
-
 while n<=8:
         if n%2!=0:
             while 1:
@@ -251,7 +250,7 @@ while n<=8:
             accept=form(0,num)
             if accept!=1:
                 n=n+1
-            if count[1] == count[2] == count[3] == "X" or count[4] == count[5] == count[6] == "X" or count[7] == count[8] == count[9] == "X" or count[1] == count[4] == count[7] == "X" or count[2] == count[5] == count[7] == "X" or count[3] == count[6] == count[9] == "X" or count[1] == count[5] == count[9] == "X" or count[3] == count[5] == count[7] == "X":
+            if count[1] == count[2] == count[3] == "X" or count[4] == count[5] == count[6] == "X" or count[7] == count[8] == count[9] == "X" or count[1] == count[4] == count[7] == "X" or count[2] == count[5] == count[8] == "X" or count[3] == count[6] == count[9] == "X" or count[1] == count[5] == count[9] == "X" or count[3] == count[5] == count[7] == "X":
                 time.sleep(1)
                 print("%s赢了"% black_player)
                 begin = False
@@ -266,7 +265,7 @@ while n<=8:
             accept = form(1, num)
             if accept != 1:
                 n = n + 1
-            if count[1] == count[2] == count[3] == "O" or count[4] == count[5] == count[6] == "O" or count[7] == count[8] == count[9] == "O" or count[1] == count[4] == count[7] == "O" or count[2] == count[5] == count[7] == "O" or count[3] == count[6] == count[9] == "O" or count[1] == count[5] == count[9] == "O" or count[3] == count[5] == count[7] == "O":
+            if count[1] == count[2] == count[3] == "O" or count[4] == count[5] == count[6] == "O" or count[7] == count[8] == count[9] == "O" or count[1] == count[4] == count[7] == "O" or count[2] == count[5] == count[8] == "O" or count[3] == count[6] == count[9] == "O" or count[1] == count[5] == count[9] == "O" or count[3] == count[5] == count[7] == "O":
                 time.sleep(1)
                 print("%s赢了" % white_player)
                 begin = False

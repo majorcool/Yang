@@ -9,7 +9,7 @@ def nnn():
     a = 0
     while a < n:
         x = float(input("成绩:"))
-        if x >= 0 and x <= 100:
+        if 0<=x<=100:
             a = a + 1
             sum = sum + x
         else:

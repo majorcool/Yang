@@ -3,7 +3,7 @@ list = [5, "ji", 3.0, 4, 5, 6, 7, 8, 9.9]
 def nnn():
     z= len(list)
     for n in range(0,z):
-        if type(list[n])==int or type(list[n])==float:
+        if type(list[n]) in (int,float):
             num = list[n] * 2
             list[n] = num
     return list

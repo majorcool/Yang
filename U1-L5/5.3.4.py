@@ -12,7 +12,7 @@ info = {
 n=1
 for key in info:
     print("%s买了" %(key),end="")
-    for value in info[key].values():
-        print(value)
+    print(info['小明']['fruits'])
+    print("花了{}".format(info['小明']['money']))
             
 

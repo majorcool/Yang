@@ -11,8 +11,8 @@ while n!=1:
             n=1
             break
         else:
-            if num.find(x-1)==num.find(-x):
-                num = num.strip(a)
+            if num.find(num[x-1])==num.find(num[-x]):
+                num = num.strip(num[a])
                 break
             else:
                 print("不是回文")

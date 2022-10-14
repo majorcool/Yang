@@ -9,7 +9,7 @@ def login():
                 if pw1=="q":
                     print("False")
                     return
-                if pw1.isalnum() and len(pw1) >= 8 and pw1.isnumeric()==False and pw1.isalpha==False:
+                if pw1.isalnum() and len(pw1) >= 8 and pw1.isnumeric()==False and pw1.isalpha()==False:
                     print("输入正确")
                     break
                 else:
@@ -26,6 +26,7 @@ def login():
                 listpw.append(pw1)
                 login_info[user1]=listpw
                 break
+    listpw[::-1]
     list1.insert(3-n,pw1)
 while 1:
     user1=input('user:')

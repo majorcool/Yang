@@ -1,5 +1,6 @@
 import time
 count=["empty"," "," "," "," "," "," "," "," "," "]
+piece= {1: {"a":"","b":""},2: {"a":"","b":""},3: {"a":"","b":""},4: {"a":"","b":""},5: {"a":"","b":""},6: {"a":"","b":""},7: {"a":"","b":""},8: {"a":"","b":""},9: {"a":"","b":""}}
 again=False
 def form(a,b):
     o1 = count[1]
@@ -239,7 +240,7 @@ print("丨 (7) 丨 (8) 丨 (9) 丨")
 print("")
 time.sleep(1)
 n=1
-while n<=8:
+while begin!=False:
         if n%2!=0:
             while 1:
                 num = int(input("请X方输入数字："))
@@ -249,12 +250,19 @@ while n<=8:
                     print("输入的字符不符合要求，请重新输入")
             accept=form(0,num)
             if accept!=1:
+                piece[n]={"a":"X","b":num}
                 n=n+1
             if count[1] == count[2] == count[3] == "X" or count[4] == count[5] == count[6] == "X" or count[7] == count[8] == count[9] == "X" or count[1] == count[4] == count[7] == "X" or count[2] == count[5] == count[8] == "X" or count[3] == count[6] == count[9] == "X" or count[1] == count[5] == count[9] == "X" or count[3] == count[5] == count[7] == "X":
                 time.sleep(1)
                 print("%s赢了"% black_player)
                 begin = False
                 break
+            if n > 6:
+                value1 = piece[n - 6]["a"]
+                value2 = piece[n - 6]["b"]
+                print("{}在第{}格即将消失".format(value1, value2))
+                print("")
+                count[piece[n - 6]["b"]] = " "
         if n%2!=1:
             while 1:
                 num = int(input("请O方输入数字："))
@@ -264,9 +272,16 @@ while n<=8:
                     print("输入的字符不符合要求，请重新输入")
             accept = form(1, num)
             if accept != 1:
+                piece[n] = {"a":"O","b":num}
                 n = n + 1
             if count[1] == count[2] == count[3] == "O" or count[4] == count[5] == count[6] == "O" or count[7] == count[8] == count[9] == "O" or count[1] == count[4] == count[7] == "O" or count[2] == count[5] == count[8] == "O" or count[3] == count[6] == count[9] == "O" or count[1] == count[5] == count[9] == "O" or count[3] == count[5] == count[7] == "O":
                 time.sleep(1)
                 print("%s赢了" % white_player)
                 begin = False
                 break
+            if n > 6:
+                value1 = piece[n - 6]["a"]
+                value2 = piece[n - 6]["b"]
+                print("{}在第{}格即将消失".format(value1, value2))
+                print("")
+                count[piece[n - 6]["b"]] = " "

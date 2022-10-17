@@ -8,3 +8,4 @@ for n in list1:
 output=str1.join(num)
 print(output)
 print(str1.join(list1))
+print(str1.join(list1))

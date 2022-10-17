@@ -12,5 +12,5 @@ for n in range(0,len1):
         d+=1
     else:
         e+=1
-tuple1=("num:{},space:{},alpha:{},another:{}".format(c,b,d,e))
+tuple1=("num:{},space:{},alpha:{},another:{}".format(d,b,c,e))
 print(tuple1)

@@ -13,4 +13,4 @@ def num(n):
     print(sum)
     sum=int(sum)
     print(sum)
-num(3)
+num (3)

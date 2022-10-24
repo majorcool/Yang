@@ -9,7 +9,7 @@ def info():
         if password == "1":
             break
         else:
-            password = input("again password:")
+            password= input("again password:")
     for G in range(0,2):
         newpassword=input("newpassword:")
         while 1:

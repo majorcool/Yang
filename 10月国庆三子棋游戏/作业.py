@@ -1,9 +1,12 @@
 import time
 import os
-count = ["empty"," "," "," "," "," "," "," "," "," "]
-piece = {1: {"a":"","b":""},2: {"a":"","b":""},3: {"a":"","b":""},4: {"a":"","b":""},5: {"a":"","b":""},6: {"a":"","b":""},7: {"a":"","b":""},8: {"a":"","b":""},9: {"a":"","b":""}}
+count = ["empty", " ", " ", " ", " ", " ", " ", " ", " ", " "]  # 位置是否被填充
+piece = {1: {"a": "", "b": ""}, 2: {"a": "", "b": ""}, 3: {"a": "", "b": ""}, 4: {"a": "", "b": ""}, 5: {"a": "", "b": ""}, 6: {"a": "", "b": ""}, 7: {"a": "", "b": ""}, 8: {"a": "", "b": ""}, 9: {"a": "", "b": ""}}
+# 记录XO每一步所填充的位置
 again = False
-def form (a,b):
+
+
+def form(a, b):  # a为先后手，b为下的位置
     one = count[1]
     two = count[2]
     three = count[3]
@@ -13,224 +16,208 @@ def form (a,b):
     seven = count[7]
     eight = count[8]
     nine = count[9]
-    if a==0:
-        if b==1 and count[b]==" ":
-            one="X"
+    if a == 0:
+        if b == 1 and count[b] == " ":
+            one = "X"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="X"
+            count[b] = "X"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==2 and count[b]==" ":
-            two="X"
+        if b == 2 and count[b] == " ":
+            two = "X"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="X"
+            count[b] = "X"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==3 and count[b]==" ":
+        if b == 3 and count[b] == " ":
             three="X"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="X"
+            count[b] = "X"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==4 and count[b]==" ":
-            four="X"
+        if b == 4 and count[b] == " ":
+            four = "X"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="X"
+            count[b] = "X"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==5 and count[b]==" ":
-            five="X"
+        if b == 5 and count[b] == " ":
+            five = "X"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="X"
+            count[b] = "X"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==6 and count[b]==" ":
-            six="X"
+        if b == 6 and count[b] == " ":
+            six = "X"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="X"
+            count[b] = "X"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==7 and count[b]==" ":
-            seven="X"
+        if b == 7 and count[b] == " ":
+            seven = "X"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="X"
+            count[b] = "X"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==8 and count[b]==" ":
-            eight="X"
+        if b == 8 and count[b] == " ":
+            eight = "X"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="X"
+            count[b] = "X"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==9 and count[b]==" ":
-            nine="X"
+        if b == 9 and count[b] == " ":
+            nine = "X"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="X"
+            count[b] = "X"
             return
         elif count[b]!=" ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-    if a==1:
-        if b==1 and count[b]==" ":
-            one="O"
+    if a == 1:
+        if b == 1 and count[b] == " ":
+            one = "O"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="O"
+            count[b] = "O"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==2 and count[b]==" ":
-            two="O"
+        if b == 2 and count[b] == " ":
+            two = "O"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="O"
+            count[b] = "O"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==3 and count[b]==" ":
-            three="O"
+        if b == 3 and count[b] == " ":
+            three = "O"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="O"
+            count[b] = "O"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==4 and count[b]==" ":
-            four="O"
+        if b == 4 and count[b] == " ":
+            four = "O"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="O"
+            count[b] = "O"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==5 and count[b]==" ":
-            five="O"
+        if b == 5 and count[b] == " ":
+            five = "O"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="O"
+            count[b] = "O"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==6 and count[b]==" ":
-            six="O"
+        if b == 6 and count[b] == " ":
+            six = "O"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="O"
+            count[b] = "O"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==7 and count[b]==" ":
-            seven="O"
+        if b == 7 and count[b] == " ":
+            seven = "O"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="O"
+            count[b] = "O"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==8 and count[b]==" ":
-            eight="O"
+        if b == 8 and count[b] == " ":
+            eight = "O"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="O"
+            count[b] = "O"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
-        if b==9 and count[b]==" ":
-            nine="O"
+        if b == 9 and count[b] == " ":
+            nine = "O"
             print("丨", one, "丨", two, "丨", three, "丨", sep=" ")
             print("丨", four, "丨", five, "丨", six, "丨", sep=" ")
             print("丨", seven, "丨", eight, "丨", nine, "丨", sep=" ")
             print("")
-            count[b]="O"
+            count[b] = "O"
             return
-        elif count[b]!=" ":
+        elif count[b] != " ":
             print("该位置已被下过，请重下")
-            again=True
             return 1
+
+
 while 1:
     black_player = input("请输入玩家1姓名（先手X）：")
     white_player = input("请输入玩家2姓名（后手O）：")
@@ -242,47 +229,46 @@ while 1:
     print("")
     time.sleep(1)
     time1 = 1
-    while 1:
+    while 1:  # 模式选择
         method = int(input("请输入数字’1‘or’2‘，1为简单模式；2为复杂模式："))
         if method == 1 or method == 2:
             break
-    if method == 2:
-        while begin != False:
-            if time1 % 2 != 0:
-                os.system("cls")
-                while 1:
+    if method == 2:  # 困难模式
+        while begin:
+            if time1 % 2 != 0:  # 判断先后手
+                while 1:  # 判断输入数字是否合理
                     num = int(input("请X方输入数字："))
                     if type(num) == int and 1 <= num <= 9:
                         break
                     else:
                         print("输入的字符不符合要求，请重新输入")
+                os.system("cls")
                 accept = form(0, num)
-                if accept != 1:
+                if accept != 1:  # 将填写的数存入列表
                     piece[time1] = {"a": "X", "b": num}
                     time1 = time1 + 1
                 if count[1] == count[2] == count[3] == "X" or count[4] == count[5] == count[6] == "X" or count[7] == \
                         count[8] == count[9] == "X" or count[1] == count[4] == count[7] == "X" or count[2] == count[
                     5] == count[8] == "X" or count[3] == count[6] == count[9] == "X" or count[1] == count[5] == count[
-                    9] == "X" or count[3] == count[5] == count[7] == "X":
+                    9] == "X" or count[3] == count[5] == count[7] == "X":  # 输赢判断
                     time1.sleep(1)
                     print("%s赢了" % black_player)
                     begin = False
                     break
-                if time1 > 6:
+                if time1 > 6:  # 6步后棋子替换
                     value1 = piece[time1 - 6]["a"]
                     value2 = piece[time1 - 6]["b"]
                     print("{}在第{}格即将消失".format(value1, value2))
                     print("")
                     count[piece[time1 - 6]["b"]] = " "
-            if time1 % 2 != 1:
-                os.system("cls")
+            if time1 % 2 != 1:  # 一下重复代码，含义如上
                 while 1:
                     num = int(input("请O方输入数字："))
                     if type(num) == int and 1 <= num <= 9:
                         break
                     else:
                         print("输入的字符不符合要求，请重新输入")
-
+                os.system("cls")
                 accept = form(1, num)
                 if accept != 1:
                     piece[time1] = {"a": "O", "b": num}
@@ -303,7 +289,7 @@ while 1:
                     count[piece[time1 - 6]["b"]] = " "
     if method == 1:
         end = 1
-        while begin != False and time1 <= 9:
+        while begin and time1 <= 9:
             if time1 % 2 != 0:
                 while 1:
                     num = int(input("请X方输入数字："))
@@ -311,6 +297,7 @@ while 1:
                         break
                     else:
                         print("输入的字符不符合要求，请重新输入")
+                os.system("cls")
                 accept = form(0, num)
                 if accept != 1:
                     piece[time1] = {"a": "X", "b": num}
@@ -333,6 +320,7 @@ while 1:
                         break
                     else:
                         print("输入的字符不符合要求，请重新输入")
+                os.system("cls")
                 accept = form(1, num)
                 if accept != 1:
                     piece[time1] = {"a": "O", "b": num}
@@ -346,5 +334,5 @@ while 1:
                     begin = False
                     end = 0
                     break
-        if end == 1:
+        if end == 1:  # 9步结束
             print("平局")

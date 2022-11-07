@@ -10,5 +10,5 @@ def reverse_vowels(s:str):
     for num1 in range(0, len(list1)):
         s=s.replace("*",list1[len(list1)-1-num1],1)
     return s
-print(reverse_vowels("helleoew"))
+print(reverse_vowels("hElleoew"))
 

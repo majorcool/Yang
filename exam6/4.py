@@ -9,7 +9,7 @@ def max_sec_average(l: list, n):
             sum=sum+int(l[b])
         if sum>sumz:
             sumz=sum
-    return sumz
+    return sumz/n
 print(max_sec_average([1,2,3,4,-5],2))
 
 

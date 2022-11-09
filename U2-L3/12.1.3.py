@@ -20,7 +20,7 @@ class Fruit:
 
     def __another_secret(self):
         print(self.__real_name)"""
-#实例属性：2
-#实例方法：2
+#实例属性：4(私有属性是实例属性）
+#实例方法：4(不包含内置方法)
 #私有实例属性：2
 #私有实例方法：2

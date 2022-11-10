@@ -3,14 +3,15 @@
 #你可能需要同时修改 A 类
 class A:
     def __init__(self):
-        self.__a = 1
+        self.__a = 1#__a=_A__a
 
-    def change(self):
-        self.__a = 2
+    def change(self):#selfA中的a
+        self.__a = 6
         return self.__a
 
 class B(A):
-    pass
+    def change1(self):
+        return self.change()#selfB中的a
 
-a=A()
-print(a.change())
+a=B()
+print(a.change1())

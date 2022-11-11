@@ -32,7 +32,7 @@ class Fish:
 class BigFish(Fish):
     def __init__(self):
         super().__init__()
-        self.hp = 50
+        self.hp = 100
 
     def move(self):
         self.X = self.X + random.randint(-1, 1)
@@ -66,6 +66,8 @@ while big_fish.hp > 0 and len(eaten_fish) < 10:
             del s
     if big_fish.hp == 0:
         print("big fish died")
-    if len(eaten_fish) == 10:
+    if len(eaten_fish) >= 10:
         print("all small fish are died")
+print(big_fish.hp)
+print(len(eaten_fish))
 

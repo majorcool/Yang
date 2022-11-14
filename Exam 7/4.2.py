@@ -4,6 +4,7 @@ class Animal:
 
     def increase(self, n):
         self.health = self.health + n
+        return self.health
 
 
 class Manager:

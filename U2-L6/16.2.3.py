@@ -58,4 +58,5 @@ def game():
         count += 1
     print("points:{}".format(zj.award(count)))
 
+
 game()

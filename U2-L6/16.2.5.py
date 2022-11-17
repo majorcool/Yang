@@ -48,6 +48,7 @@ class Rule:
     def judge(self, zj, player):
         player.point = zj.award(self.rounds)
 
+
 def game():
     first = 0
     second = 100

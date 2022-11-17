@@ -36,19 +36,20 @@ class Player:
         return num1
 
 
-def game():
+def game(zj, wj):
+    zj.again = False
     count = 0
-    zj = Dealer()
-    wj = Player()
     zj.set_number()
     #print(zj.num)
     while zj.again == False:
         zj.hint(wj.guess_number())
         count += 1
-    print(zj.award(count))
-    if not zj.award(count)  < -10:
-        print("-------------------------------")
-        return game()
+    swardprint = int(zj.award(count))
+    print(swardprint)
+    # if not zj.award(count)  < -10:
+    return swardprint
 
-
-game()
+zj = Dealer()
+wj = Player()
+while game(zj,wj) >= -10:
+    print("-------------")

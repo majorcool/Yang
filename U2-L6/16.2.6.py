@@ -6,6 +6,7 @@
 #
 # a = A()
 # print(a.b)
+#  1
 
 """def test(n):
     del n

@@ -9,6 +9,7 @@
 # 4. 重复步骤 2~3，如果所有的好人被处决，Mafia 获胜；如果找出所有的 Mafia，好人获胜
 import random
 
+
 class Rule:
     def __init__(self):
         self.live = 9
@@ -16,25 +17,13 @@ class Rule:
     def increase(self, num):
         self.live += num
 
-    def killpeople(self, x1=-3, x2=-2, x3=-1):
-        if x1 == x2:
-            return x1
-        elif x2 == x3:
-            return x2
-        elif x1 == x3:
-            return x1
-        else:
-            kill = sorted([x1, x2, x3], reverse=True)
-            kill = list(set(kill))
-            return kill[0]
-
-    def out(self, len, people):
+    def out(self, livepeople):
         list1 = []
         repeat = 0
         count = 0
         output = 0
-        for i in range(0, len):
-            list1.append(people.vote(self))
+        for i in livepeople:
+            list1.append(i.vote(self))
         list1 = sorted(list1, reverse=True)
         for i in list1:
             for z in list1:
@@ -49,56 +38,78 @@ class Rule:
             print("killer win")
         else:
             print("good people win")
+
+
 class People:
     def __init__(self):
         self.life = True
 
     def vote(self, rule):
-        x = random.randint(0, rule.live)
+        x = random.randint(0, rule.live-1)
         return x
 
 
 class Mafia(People):
     def kill(self, rule):
-        x = random.randint(0, rule.live)
+        x = random.randint(0, rule.live-1)
         return x
 
 
 def game():
     livepeople = []
-    killer = []
+    ticket = []
+    kill_person = 0
+    old_counts = 0
     rule = Rule()
     goodpeople = []
-    oldchoice = -1
-    for i in range(0, 9):
-        livepeople.append(People())
+    killer = []
+
     for i in range(0, 3):
-        while 1:
-            newchoice = random.randint(0, 9)
-            if not oldchoice == newchoice:
-                break
-        print(livepeople)
-        livepeople[newchoice] = Mafia()
-        killer.append(livepeople[newchoice])
-    for i in livepeople:
-        if not i in killer:
-            goodpeople.append(i)
+        killer.append(Mafia())
+    for i in range(0, 6):
+        goodpeople.append(People)
+        livepeople.append(People)
+    for l in range(0, 3):
+        livepeople.append(killer[l])
+
+    for i in killer:
+        ticket.append(i.kill(rule))
+    ticket = sorted(ticket, reverse=True)
+    for q in ticket:
+        new_counts = 0
+        for w in ticket:
+            if w == q:
+                new_counts = new_counts + 1
+        if new_counts >= old_counts:
+            old_counts = new_counts
+            kill_person = int(q)
+    print(livepeople)
+    print(goodpeople)
+    print(killer)
     while len(goodpeople) > 0 and len(killer) > 0:
-        if len(killer) == 3:
-            died = rule.killpeople(killer[0].kill(rule), killer[1].kill(rule), killer[2].kill(rule))
-        if len(killer) == 2:
-            died = rule.killpeople(killer[0].kill(rule), killer[1].kill(rule))
-        else:
-            died = rule.killpeople(killer[0].kill(rule))
-        if livepeople[died] in goodpeople:
-            goodpeople.remove(livepeople[died])
-        if livepeople[died] in killer:
-            killer.remove(livepeople[died])
-        livepeople.pop(died)
+        if livepeople[kill_person] in goodpeople:
+            print(livepeople[kill_person])
+            goodpeople.remove(livepeople[kill_person])
+        if livepeople[kill_person] in killer:
+            killer.remove(livepeople[kill_person])
+        livepeople.pop(kill_person)
         rule.increase(-1)
-        rule.out(len(livepeople), goodpeople[0])
+        print(len(goodpeople))
+        print(len(killer))
+        print()
+
+        voted_people = rule.out(livepeople)
+        if livepeople[voted_people] in goodpeople:
+            goodpeople.remove(livepeople[voted_people])
+        if livepeople[voted_people] in killer:
+            killer.remove(livepeople[voted_people])
+        livepeople.pop(voted_people)
         rule.increase(-1)
+        print(len(goodpeople))
+        print(len(killer))
+        print()
+
     rule.victory(goodpeople)
 
-
 game()
+

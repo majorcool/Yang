@@ -3,12 +3,15 @@
 # with a non-zero area, formed from three of these lengths.
 # If it is impossible to form any triangle of a non-zero area, return 0.
 def largest_perimeter(nums: list):
-    if nums[0] + nums[1] > nums[2] and nums[1] + nums[2] > nums[0] and nums[0] + nums[2] > nums[1]:
-        return nums[0] + nums[1] + nums[2]
+    nums = sorted(nums, reverse=True)
+    for i in range(0, len(nums)-2):
+        if nums[i + 1] +nums[i + 2] > nums[i]:
+            return nums[i] + nums[1+i] + nums[2+i]
     else:
         return 0
 
 
+print(largest_perimeter([1,1,2]))
 print(largest_perimeter([2,1,2]))
-print(largest_perimeter([1,2,1]))
+print(largest_perimeter([2,1,5,6,9,10,13,7,7,3,2,5,4]))
 

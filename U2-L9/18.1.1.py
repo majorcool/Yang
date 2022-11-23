@@ -16,6 +16,8 @@ class A:
 
     @staticmethod
     def test1():
+        print([name for name in dir(A) if name[:2:] != '__' and name[::-1][:2:] != '__'])
+
         l = []
         for i in dir(A):
             if i[:2:] != '__' and i[::-1][:2:] != '__':
@@ -49,3 +51,5 @@ def function():
 
 
 function()
+a = [A() for _ in range(2)]
+print(a)

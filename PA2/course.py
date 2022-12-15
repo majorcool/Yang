@@ -1,14 +1,51 @@
-class Course:
-    course_num = []
+import os
+import atexit
 
-    def __init__(self, name, teacher, credit, max_people):
+
+class Course:
+    course_num = list(os.listdir('courses'))
+
+    def __init__(self, attribute, name, teacher, credit, max_people):
+        Course.course_num.append(str(self))
+        self.attribute = attribute  # 0选修，1必修
         self.name = name
         self.teacher = teacher
         self.credit = credit
         self.number = 0
         self.number_list = []
         self.max_people = max_people
-        print('{} course has been created'.format(self.name))
+        open('courses/{}'.format(self.name), 'w').close()
+        with open('courses/{}'.format(self.name), 'w') as cor:
+            cor.write(self.attribute)
+            cor.write('\n')
+            cor.write(str(self))
+            cor.write('\n')
+            cor.write(self.teacher)
+            cor.write('\n')
+            cor.write(str(self.credit))
+            cor.write('\n')
+            cor.write(str(self.number))
+            cor.write('\n')
+            cor.write(str(self.number_list))
+            cor.write('\n')
+            cor.write(str(self.max_people))
+        atexit.register(self._del)
+
+    def _del(self):
+        with open('courses/{}'.format(self.name), 'w') as cor:
+            cor.write(self.attribute)
+            cor.write('\n')
+            cor.write(str(self))
+            cor.write('\n')
+            cor.write(self.teacher)
+            cor.write('\n')
+            cor.write(str(self.credit))
+            cor.write('\n')
+            cor.write(str(self.number))
+            cor.write('\n')
+            cor.write(str(self.number_list))
+            cor.write('\n')
+            cor.write(str(self.max_people))
 
 
 class RequiredCourse(Course):
@@ -27,5 +64,4 @@ class ElectiveCourse(Course):
         ElectiveCourse.elective_count += 1
 
 
-a = ElectiveCourse(1, 2, 3, 4)
-print(a.number, ElectiveCourse.elective_count)
+

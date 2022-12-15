@@ -1,30 +1,41 @@
 #   1. 登录、退出系统
+import os
+import atexit
 
 
 class Administration:
-    administration_num = []
-    score_requirement = ''
+    administration_num = os.listdir('administrations')
+    if len(administration_num) == 0:
+        score_requirement = 0
+    else:
+        with open('administrations/{}'.format(administration_num[0]), 'r') as adm:
+            if len(administration_num[0]) == 3:
+                score_requirement = administration_num[0].split('\n')[len(administration_num)-1]
+            else:
+                score_requirement = 0
 
     def __init__(self, username, password):
-        Administration.administration_num.append(self)
-        print('{} administration account has been created'.format(username))
         self.state = False
         self.username = username
         self.password = password
+        open('administrations/{}'.format(self.username), 'w').close()
+        with open('administrations/{}'.format(self.username), 'w') as adm:
+            adm.write(str(self))
+            adm.write('\n')
+            adm.write(str(password))
+            adm.write('\n')
+            adm.write(str(Administration.score_requirement))
+        Administration.administration_num.append(str(self))
+        print('{} administration account has been created'.format(username))
+        atexit.register(self._del)
 
-    def login(self, username, password):  # 登录
-        if username in Administration.administration_num:
-            if password == Administration.administration_num[username]:
-                print('Login succeeded')
-                self.state = True
-            else:
-                print('password are not accord with username')
-        else:
-            print('The user is not registered')
-
-    def out(self):  # 退出
-        self.state = False
-        print('sign out succeed')
+    def _del(self):
+        with open('administrations/{}'.format(self.username), 'w') as adm:
+            adm.write(str(self))
+            adm.write('\n')
+            adm.write(str(self.password))
+            adm.write('\n')
+            adm.write(str(Administration.score_requirement))
 
     @staticmethod
     def check_student_message(student_num):  # 查看学生账号信息
@@ -32,13 +43,12 @@ class Administration:
             print('{}:course{}'.format(i.username, i.course))
 
     @staticmethod
-    def create_student_account(student_class, username, password):  # 创建学生账号 ->interact
-        student_class.student_num.append(student_class(username, password))
-        print('{}account has been create successfully'.format(username))
+    def create_student_account(username):  # 创建学生账号 ->interact finish
+        print('{} account has been create successfully'.format(username))
 
     @staticmethod
-    def create_course(course_class, name, teacher, goal_score, max_people):  # 创建课程 ->interact
-        course_class.course_num.append(course_class(name, teacher, goal_score, max_people))
+    def create_course(name):  # 创建课程 ->interact finish
+        print('{} course has been created'.format(name))
 
     @staticmethod
     def change_course_name(course_instance, new_message):  # 修改课程name
@@ -64,7 +74,7 @@ class Administration:
     @classmethod
     def set_target(cls, target):  # 设置学生的学分要求
         cls.score_requirement = target
-        print('new target{} has been set')
+        print('new target {} has been set'.format(target))
 
     @ staticmethod
     def check_student_class(course_nums: list):  # 查看学生选课情况

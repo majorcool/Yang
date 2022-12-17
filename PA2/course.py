@@ -3,10 +3,14 @@ import atexit
 
 
 class Course:
-    course_num = list(os.listdir('courses'))
+    course_num = []
+    for i in list(os.listdir('courses')):
+        with open(str(i), 'r') as f:
+            content = f.read().split('\n')[1]
+            course_num.append(content)
 
     def __init__(self, attribute, name, teacher, credit, max_people):
-        Course.course_num.append(str(self))
+        Course.course_num.append(str(name))
         self.attribute = attribute  # 0选修，1必修
         self.name = name
         self.teacher = teacher

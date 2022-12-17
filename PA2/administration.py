@@ -40,7 +40,7 @@ class Administration:
     @staticmethod
     def check_student_message(student_num):  # 查看学生账号信息
         for i in student_num:
-            print('{}:course{}'.format(i.username, i.course))
+            print('{}:course{}'.format(i.username, i.course, i.score_goal_achievement))
 
     @staticmethod
     def create_student_account(username):  # 创建学生账号 ->interact finish

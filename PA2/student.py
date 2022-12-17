@@ -4,7 +4,11 @@ import atexit
 
 
 class Student:
-    student_num = list(os.listdir('students'))
+    student_num = []
+    for i in list(os.listdir('students')):
+        with open(str(i), 'r') as f:
+            content = f.read().split('\n')[0]
+            student_num.append(content)
 
     def __init__(self, username, password):
         Student.student_num.append(str(self))

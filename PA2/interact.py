@@ -13,21 +13,24 @@ class Interact:
         Student(username, password)
 
     @staticmethod
-    def create_course_interact(name, teacher, goal_score, max_people):
+    def create_course_interact(attribute, name, teacher, goal_score, max_people):
         Administration.create_course(name)
-        Course(name, teacher, goal_score, max_people)
+        Course(attribute, name, teacher, goal_score, max_people)
 
     @staticmethod
     def choose_course_interact(student_instance, new_course):
+        student_instance.credits_selected += new_course.credit
         student_instance.choose_course(new_course)
         new_course.mumber += 1
         new_course.number_list.append(student_instance)
 
     @staticmethod
     def remove_course_interact(student_instance, old_course):
+        student_instance.credits_selected -= old_course.credit
         student_instance.remove_course(old_course)
         old_course.mumber -= 1
         old_course.mumber_list.remove(student_instance)
+
     @staticmethod
     def judge(student_instance):
         if student_instance.credits_selected > Administration.score_requirement:

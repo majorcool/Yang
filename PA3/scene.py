@@ -1,7 +1,7 @@
 import pygame
 
 
-class Ground:
+class Ground(pygame.sprite.Sprite):
 
     def __init__(self, image, position):
         pygame.sprite.Sprite.__init__(self)
@@ -28,7 +28,7 @@ class Ground:
             self.rect_1, self.rect_0 = self.rect_0, self.rect_1
 
 
-class Cloud:
+class Cloud(pygame.sprite.Sprite):
 
     def __init__(self, image, position):
         pygame.sprite.Sprite.__init__(self)
@@ -44,7 +44,7 @@ class Cloud:
 
     def update(self):
         self.rect.left += self.speed
-        if self.rect.right == 0:
+        if self.rect.right <= 0:
             pygame.sprite.Sprite.kill(self)
 
 

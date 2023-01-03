@@ -5,6 +5,7 @@ from obstacle import Ptera
 from scene import Ground
 from scene import Cloud
 from obstacle import Cactus
+from scoreboard import Scoreboard
 
 
 FPS = 60
@@ -22,6 +23,19 @@ IMAGE_PATHS = {
     'cactus4': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/Cactus4.png',
     'cactus5': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/Cactus5.png',
     'cactus6': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/Cactus6.png',
+    '0': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-0.png',
+    '1': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-1.png',
+    '2': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-2.png',
+    '3': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-3.png',
+    '4': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-4.png',
+    '5': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-5.png',
+    '6': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-6.png',
+    '7': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-7.png',
+    '8': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-8.png',
+    '9': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-9.png',
+    'HI': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-10.png'
+
+
 }
 
 pygame.init()
@@ -48,7 +62,15 @@ image_cactus_5 = pygame.image.load(IMAGE_PATHS['cactus5'])
 image_cactus_6 = pygame.image.load(IMAGE_PATHS['cactus6'])
 cactus_sprites_group = pygame.sprite.Group()
 
-while True:
+image_scoreboard = list()
+for i in range(0, 11):
+    image_scoreboard.append(pygame.image.load(IMAGE_PATHS[str(0)]))
+scoreboard = Scoreboard(image_scoreboard, (500, 100))
+
+process = 'start'
+difficult = 0
+
+while process == 'start':
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -93,11 +115,13 @@ while True:
     cloud_sprites_group.update()
     ptera_sprites_group.update()
     cactus_sprites_group.update()
+    scoreboard.update()
 
     ground.draw(screen)
     cloud_sprites_group.draw(screen)
     ptera_sprites_group.draw(screen)
     cactus_sprites_group.draw(screen)
+    scoreboard.draw(screen)
 
     pygame.display.update()
     clock.tick(FPS)

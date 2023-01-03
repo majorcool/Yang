@@ -15,6 +15,7 @@ class Ground(pygame.sprite.Sprite):
         self.rect_1.left, self.rect_1.bottom = self.rect_0.right, self.rect_0.bottom
 
         self.speed = -10
+        self.distance = 0
 
     def draw(self, screen):
         screen.blit(self.image_0, self.rect_0)
@@ -26,6 +27,9 @@ class Ground(pygame.sprite.Sprite):
         if self.rect_0.right < 0:
             self.rect_0.left = self.rect_1.right
             self.rect_1, self.rect_0 = self.rect_0, self.rect_1
+
+    def distance_calculation(self):
+        self.distance += 1
 
 
 class Cloud(pygame.sprite.Sprite):

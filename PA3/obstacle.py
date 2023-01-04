@@ -32,7 +32,7 @@ class Ptera(pygame.sprite.Sprite):
         self.rect.left, self.rect.top = position
         self.mask = pygame.mask.from_surface(self.image)
 
-        self.speed = -2
+        self.speed = -10
 
         self.refresh_rate = 10
         self.refresh_counter = 0

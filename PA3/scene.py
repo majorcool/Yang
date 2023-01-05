@@ -53,13 +53,3 @@ class Cloud(pygame.sprite.Sprite):
             pygame.sprite.Sprite.kill(self)
 
 
-class ScoreBoard:
-
-    def __init__(self):
-        pass
-
-    def set_score(self):
-        pass
-
-    def draw(self):
-        pass

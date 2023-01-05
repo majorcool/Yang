@@ -6,6 +6,7 @@ class Cactus(pygame.sprite.Sprite):
     def __init__(self, image, position):
         pygame.sprite.Sprite.__init__(self)
         self.image = image
+        self.state = True
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = position
         self.mask = pygame.mask.from_surface(self.image)
@@ -31,6 +32,7 @@ class Ptera(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = position
         self.mask = pygame.mask.from_surface(self.image)
+        self.state = True
 
         self.speed = -10
 
@@ -59,4 +61,7 @@ class Ptera(pygame.sprite.Sprite):
 
         self.rect.left += self.speed
         if self.rect.right < 0:
+            self.state = False
             self.kill()
+
+

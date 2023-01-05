@@ -23,6 +23,7 @@ class Scoreboard(pygame.sprite.Sprite):
             self.image_score.blit(self.images[int(score[i])], (20 * i, 0))
 
         self.image_high_score = pygame.Surface((160, 31))
+        self.image_high_score.set_alpha(215, 0)
         self.image_high_score.fill((235, 235, 235))
         self.image_high_score.blit(self.images[-1], (0, 0))
         for i, _ in enumerate(str(self.high_score).zfill(5)):

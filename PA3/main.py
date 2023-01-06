@@ -48,6 +48,8 @@ IMAGE_PATHS = {
     'dinosaur3': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur-die-2.png',
     'dinosaur4': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur-duck-1.png',
     'dinosaur5': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur-duck-2.png',
+    'dinosaur6': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur-jump.png',
+    'dinosaur7': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur-start.png',
     'restart1': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/restart-1.png',
     'restart2': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/restart-2.png',
     'restart3': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/restart-3.png',
@@ -75,6 +77,8 @@ image_dinosaur_2 = pygame.image.load((IMAGE_PATHS['dinosaur2']))
 image_dinosaur_3 = pygame.image.load((IMAGE_PATHS['dinosaur3']))
 image_dinosaur_4 = pygame.image.load((IMAGE_PATHS['dinosaur4']))
 image_dinosaur_5 = pygame.image.load((IMAGE_PATHS['dinosaur5']))
+image_dinosaur_6 = pygame.image.load((IMAGE_PATHS['dinosaur6']))
+image_dinosaur_7 = pygame.image.load((IMAGE_PATHS['dinosaur7']))
 image_dinosaur = list()
 image_dinosaur.append(image_dinosaur_0)
 image_dinosaur.append(image_dinosaur_1)
@@ -82,6 +86,8 @@ image_dinosaur.append(image_dinosaur_2)
 image_dinosaur.append(image_dinosaur_3)
 image_dinosaur.append(image_dinosaur_4)
 image_dinosaur.append(image_dinosaur_5)
+image_dinosaur.append(image_dinosaur_6)
+image_dinosaur.append(image_dinosaur_7)
 dinosaur = Dinosaur(image_dinosaur, (0, SCREENSIZE[1]-11))
 
 image_cactus_1 = pygame.image.load(IMAGE_PATHS['cactus1'])
@@ -105,7 +111,7 @@ restart = Pause(image_restart, (350, 150))
 game_over_image = pygame.image.load(IMAGE_PATHS['game_over'])
 game_over = GameOver(game_over_image)
 
-process = 'start'
+process = 'begin'
 refresh_obstacle = 50
 refresh_obstacle_count = 0
 refresh_cloud = 50
@@ -114,6 +120,47 @@ up_speed = -10
 broadcasting = None
 prepare_jump = False
 repeat = True
+
+if process == 'begin':
+    dinosaur.rect.top += 0
+
+while process == 'begin':
+
+    dinosaur.start()
+    dinosaur.draw(screen)
+    pygame.display.update()
+    clock.tick(FPS)
+    screen.fill(BACKGROUND_COLOR)
+
+    for event in pygame.event.get():
+
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+        key_list = pygame.key.get_pressed()
+
+        if key_list[pygame.K_SPACE] or key_list[pygame.K_UP] and dinosaur.state == "begin":
+            up_speed -= 3
+            up_speed = max(-20, up_speed)
+
+        if event.type == pygame.KEYDOWN:
+
+            if event.key == pygame.K_UP or event.key == pygame.K_SPACE and dinosaur.state == "begin":
+                broadcasting = "jump"
+                prepare_jump = True
+
+        elif event.type == pygame.KEYUP:
+
+            if broadcasting == "jump" and prepare_jump and not dinosaur.state == "jump":
+                dinosaur.image = dinosaur.images[0]
+                dinosaur.jump(up_speed)
+                up_speed = -10
+                prepare_jump = False
+                process = "start"
+
+if process == 'start':
+    dinosaur.rect.top -= 0
 
 while repeat:
 

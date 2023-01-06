@@ -6,10 +6,11 @@ class Dinosaur(pygame.sprite.Sprite):
     def __init__(self, images, position):
         pygame.sprite.Sprite.__init__(self)
         self.images = images
+        self.old_image = None
         self.image = images[0]
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.bottom = position
-        self.state = "run"
+        self.state = "begin"
         self.mask = pygame.mask.from_surface(self.image)
         self.refresh_counter = 0
         self.refresh_rate = 10
@@ -20,6 +21,8 @@ class Dinosaur(pygame.sprite.Sprite):
 
     def jump(self, up_speed):
         self.state = "jump"
+        self.old_image = self.image
+        self.image = self.images[6]
         pygame.mixer.Sound('C:/Users/86153/Desktop/校企联培/作业/PA3/audios/jump.mp3').play()
         self.up_speed = up_speed  # 负数
         self.end_position = self.rect.bottom
@@ -66,6 +69,9 @@ class Dinosaur(pygame.sprite.Sprite):
             self.image = self.images[0]
         self.mask = pygame.mask.from_surface(self.image)
 
+    def start(self):
+        self.image = self.images[7]
+
     def update(self):
         if self.state == "run":
             if self.refresh_counter == self.refresh_rate:
@@ -80,6 +86,8 @@ class Dinosaur(pygame.sprite.Sprite):
                 self.rect.bottom = self.end_position
                 self.up_speed = 0
                 self.state = "run"
+                self.image = self.old_image
+                self.old_image = None
 
         if self.state == "died":
             self.image = self.images[2]

@@ -1,25 +1,92 @@
-class Dinosaur:
+import pygame
 
-    def __init__(self):
-        pass
 
-    def jump(self):
-        pass
+class Dinosaur(pygame.sprite.Sprite):
+
+    def __init__(self, images, position):
+        pygame.sprite.Sprite.__init__(self)
+        self.images = images
+        self.image = images[0]
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.bottom = position
+        self.state = "run"
+        self.mask = pygame.mask.from_surface(self.image)
+        self.refresh_counter = 0
+        self.refresh_rate = 10
+        self.up_speed = 0
+        self.a = 1
+        self.end_position = self.rect.bottom
+        self.mask = pygame.mask.from_surface(self.image)
+
+    def jump(self, up_speed):
+        self.state = "jump"
+        pygame.mixer.Sound('C:/Users/86153/Desktop/校企联培/作业/PA3/audios/jump.mp3').play()
+        self.up_speed = up_speed  # 负数
+        self.end_position = self.rect.bottom
 
     def duck(self):
-        pass
+        self.state = "duck"
+        self.rect.bottom = self.end_position
+        if self.image == self.images[0]:
+            self.image = self.images[5]
+        else:
+            self.image = self.images[4]
+        self.mask = pygame.mask.from_surface(self.image)
 
     def unduck(self):
-        pass
+        self.state = 'unduck'
+        if self.image == self.images[5]:
+            self.image = self.images[0]
+        else:
+            self.image = self.images[1]
+        self.mask = pygame.mask.from_surface(self.image)
+        self.state = "run"
 
     def die(self):
-        pass
+        self.state = "died"
+        pygame.mixer.Sound('C:/Users/86153/Desktop/校企联培/作业/PA3/audios/die.mp3').play()
 
-    def draw(self):
-        pass
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
+        self.mask = pygame.mask.from_surface(self.image)
 
-    def load_image(self):
-        pass
+    def refresh_duck(self):
+        if self.image == self.images[5]:
+            self.image = self.images[4]
+        else:
+            self.image = self.images[5]
+        self.mask = pygame.mask.from_surface(self.image)
+
+    def refresh(self):
+        if self.image == self.images[0]:
+            self.rect.left -= 1
+            self.image = self.images[1]
+        else:
+            self.rect.left += 1
+            self.image = self.images[0]
+        self.mask = pygame.mask.from_surface(self.image)
 
     def update(self):
-        pass
+        if self.state == "run":
+            if self.refresh_counter == self.refresh_rate:
+                self.refresh()
+                self.refresh_counter = 0
+            self.refresh_counter += 1
+
+        if self.state == "jump":
+            self.rect.top += self.up_speed
+            self.up_speed += self.a
+            if self.rect.bottom >= self.end_position:
+                self.rect.bottom = self.end_position
+                self.up_speed = 0
+                self.state = "run"
+
+        if self.state == "died":
+            self.image = self.images[2]
+
+        if self.state == "duck":
+            if self.refresh_counter == self.refresh_rate:
+                self.refresh_duck()
+                self.refresh_counter = 0
+            self.refresh_counter += 1
+

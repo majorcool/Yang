@@ -132,11 +132,11 @@ while repeat:
 
             key_list = pygame.key.get_pressed()
 
-            if key_list[pygame.K_SPACE] or key_list[pygame.K_SPACE] and dinosaur.state == "run":
+            if key_list[pygame.K_SPACE] or key_list[pygame.K_UP] and dinosaur.state == "run":
                 up_speed -= 3
                 up_speed = max(-20, up_speed)
 
-            if key_list[pygame.K_DOWN] and dinosaur.state == "run":
+            if key_list[pygame.K_DOWN] and dinosaur.state == "run" and not prepare_jump:
                 dinosaur.duck()
 
             if key_list[pygame.K_DOWN] and dinosaur.state == "jump":

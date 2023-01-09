@@ -11,7 +11,7 @@ class Cactus(pygame.sprite.Sprite):
         self.rect.left, self.rect.top = position
         self.mask = pygame.mask.from_surface(self.image)
 
-        self.speed = -10
+        self.speed = -6
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -34,7 +34,7 @@ class Ptera(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.state = True
 
-        self.speed = -10
+        self.speed = -6
 
         self.refresh_rate = 10
         self.refresh_counter = 0

@@ -10,6 +10,19 @@ from scoreboard import Scoreboard
 from dinosaur import Dinosaur
 from set_system import Pause
 from set_system import GameOver
+from scene import Moon
+
+
+def reverse_color(image):
+    image_reverse = image.copy()
+    width, height = image_reverse.get_size()
+    for pos in [(x, y) for x in range(width) for y in range(height)]:
+        color = image_reverse.get_at(pos)
+        if color.a != 0:
+            color = ~color
+            color.a = 255
+            image_reverse.set_at(pos, color)
+    return image_reverse
 
 
 FPS = 60
@@ -58,10 +71,35 @@ IMAGE_PATHS = {
     'restart6': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/restart-6.png',
     'restart7': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/restart-7.png',
     'restart8': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/restart-8.png',
-    'game_over': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/game-over.png'
+    'game_over': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/game-over.png',
+    'moon1': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/moon-1.png',
+    'moon2': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/moon-2.png',
+    'moon3': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/moon-3.png',
+    'moon4': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/moon-4.png',
+    'moon5': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/moon-5.png',
+    'moon6': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/moon-6.png',
+    'moon7': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/moon-7.png',
 }
 
+image_moon_1 = pygame.image.load(IMAGE_PATHS['moon1'])
+image_moon_2 = pygame.image.load(IMAGE_PATHS['moon2'])
+image_moon_3 = pygame.image.load(IMAGE_PATHS['moon3'])
+image_moon_4 = pygame.image.load(IMAGE_PATHS['moon4'])
+image_moon_5 = pygame.image.load(IMAGE_PATHS['moon5'])
+image_moon_6 = pygame.image.load(IMAGE_PATHS['moon6'])
+image_moon_7 = pygame.image.load(IMAGE_PATHS['moon7'])
+image_moon_list = list()
+image_moon_list.append(image_moon_1)
+image_moon_list.append(image_moon_2)
+image_moon_list.append(image_moon_3)
+image_moon_list.append(image_moon_4)
+image_moon_list.append(image_moon_5)
+image_moon_list.append(image_moon_6)
+image_moon_list.append(image_moon_7)
+moon = Moon(image_moon_list, (random.randint(0, 700), 50))
+
 image_ground = pygame.image.load(IMAGE_PATHS['ground'])
+image_ground_reverse = reverse_color(image_ground)
 ground = Ground(image_ground, (0, SCREENSIZE[1]))
 
 image_cloud = pygame.image.load(IMAGE_PATHS['cloud'])
@@ -70,6 +108,9 @@ cloud_sprites_group = pygame.sprite.Group()
 image_ptera_0 = pygame.image.load(IMAGE_PATHS['ptera1'])
 image_ptera_1 = pygame.image.load(IMAGE_PATHS['ptera2'])
 ptera_sprites_group = pygame.sprite.Group()
+image_ptera_0_reverse = reverse_color(image_ptera_0)
+image_ptera_1_reverse = reverse_color(image_ptera_1)
+ptera_sprites_group_reverse = pygame.sprite.Group()
 
 image_dinosaur_0 = pygame.image.load((IMAGE_PATHS['dinosaur0']))
 image_dinosaur_1 = pygame.image.load((IMAGE_PATHS['dinosaur1']))
@@ -88,6 +129,15 @@ image_dinosaur.append(image_dinosaur_4)
 image_dinosaur.append(image_dinosaur_5)
 image_dinosaur.append(image_dinosaur_6)
 image_dinosaur.append(image_dinosaur_7)
+image_dinosaur_reverse = list()
+image_dinosaur_reverse.append(reverse_color(image_dinosaur_0))
+image_dinosaur_reverse.append(reverse_color(image_dinosaur_1))
+image_dinosaur_reverse.append(reverse_color(image_dinosaur_2))
+image_dinosaur_reverse.append(reverse_color(image_dinosaur_3))
+image_dinosaur_reverse.append(reverse_color(image_dinosaur_4))
+image_dinosaur_reverse.append(reverse_color(image_dinosaur_5))
+image_dinosaur_reverse.append(reverse_color(image_dinosaur_6))
+image_dinosaur_reverse.append(reverse_color(image_dinosaur_7))
 dinosaur = Dinosaur(image_dinosaur, (0, SCREENSIZE[1]-11))
 
 image_cactus_1 = pygame.image.load(IMAGE_PATHS['cactus1'])
@@ -97,15 +147,28 @@ image_cactus_4 = pygame.image.load(IMAGE_PATHS['cactus4'])
 image_cactus_5 = pygame.image.load(IMAGE_PATHS['cactus5'])
 image_cactus_6 = pygame.image.load(IMAGE_PATHS['cactus6'])
 cactus_sprites_group = pygame.sprite.Group()
+image_cactus_1_reverse = reverse_color(image_cactus_1)
+image_cactus_2_reverse = reverse_color(image_cactus_2)
+image_cactus_3_reverse = reverse_color(image_cactus_3)
+image_cactus_4_reverse = reverse_color(image_cactus_4)
+image_cactus_5_reverse = reverse_color(image_cactus_5)
+image_cactus_6_reverse = reverse_color(image_cactus_6)
+cactus_sprites_group_reverse = pygame.sprite.Group()
 
 image_scoreboard = list()
 for i in range(0, 11):
     image_scoreboard.append(pygame.image.load(IMAGE_PATHS[str(i)]))
+image_scoreboard_reverse = list()
+for i in range(0, 11):
+    image_scoreboard_reverse.append(reverse_color(pygame.image.load(IMAGE_PATHS[str(i)])))
 scoreboard = Scoreboard(image_scoreboard, (SCREENSIZE[0], 0))
 
 image_restart = list()
 for i in range(1, 9):
     image_restart.append(pygame.image.load(IMAGE_PATHS['restart{}'.format(i)]))
+image_restart_reverse = list()
+for i in range(1, 9):
+    image_restart_reverse.append(reverse_color(pygame.image.load(IMAGE_PATHS['restart{}'.format(i)])))
 restart = Pause(image_restart, (350, 150))
 
 game_over_image = pygame.image.load(IMAGE_PATHS['game_over'])
@@ -116,10 +179,15 @@ refresh_obstacle = 50
 refresh_obstacle_count = 0
 refresh_cloud = 50
 refresh_cloud_count = 0
-up_speed = -10
+up_speed = -6
 broadcasting = None
 prepare_jump = False
 repeat = True
+difficult = 0
+scene_mode = "day"
+scene_time = 2500
+scene_time_count = 0
+
 
 if process == 'begin':
     dinosaur.rect.top += 0
@@ -160,7 +228,8 @@ while process == 'begin':
                 process = "start"
 
 if process == 'start':
-    dinosaur.rect.top -= 0
+    scene_time_count = 0
+    scene_mode = 0
 
 while repeat:
 
@@ -179,21 +248,28 @@ while repeat:
 
             key_list = pygame.key.get_pressed()
 
-            if key_list[pygame.K_SPACE] or key_list[pygame.K_UP] and dinosaur.state == "run":
-                up_speed -= 3
-                up_speed = max(-20, up_speed)
+            # if key_list[pygame.K_DOWN] and dinosaur.state == "run" and not prepare_jump:
+            #     dinosaur.duck()
 
-            if key_list[pygame.K_DOWN] and dinosaur.state == "run" and not prepare_jump:
-                dinosaur.duck()
+            # if key_list[pygame.K_DOWN] and dinosaur.state == "jump":
+            #     dinosaur.up_speed = 20
 
-            if key_list[pygame.K_DOWN] and dinosaur.state == "jump":
-                dinosaur.up_speed = 20
+            pygame.key.set_repeat(pygame.KEYDOWN, 50)
 
             if event.type == pygame.KEYDOWN:
 
-                if event.key == pygame.K_UP or event.key == pygame.K_SPACE and dinosaur.state == "run":
+                if event.key == pygame.K_UP or event.key == pygame.K_SPACE and (dinosaur.state == "run" or dinosaur.state == "run"):
+                    up_speed -= 7
+                    up_speed = max(-20, up_speed)
                     broadcasting = "jump"
                     prepare_jump = True
+
+                if event.key == pygame.K_DOWN and (dinosaur.state == "jump" or dinosaur.state == "run"):
+                    print(dinosaur.state)
+                    if dinosaur.state == "jump":
+                        dinosaur.up_speed = 20
+                    if dinosaur.end_position - dinosaur.rect.bottom <= 20:
+                        dinosaur.duck()
 
             elif event.type == pygame.KEYUP:
 
@@ -204,6 +280,42 @@ while repeat:
 
                 if dinosaur.state == "duck" and not key_list[pygame.K_DOWN]:
                     dinosaur.unduck()
+
+        scoreboard.score = ground.distance//50
+        if scoreboard.score and not scoreboard.score % 100:
+            pygame.mixer.Sound('C:/Users/86153/Desktop/校企联培/作业/PA3/audios/score.mp3').play()
+
+        difficult = min(4, ground.distance//10000)  # 200切难度
+        if difficult == 0:
+            dinosaur.a = 0.8
+            ground.speed = -6
+            ptera_sprites_group.speed = -6
+            cactus_sprites_group.speed = -6
+            refresh_obstacle = 70
+        elif difficult == 1:
+            dinosaur.a = 0.85
+            ground.speed = -7
+            ptera_sprites_group.speed = -7
+            cactus_sprites_group.speed = -7
+            refresh_obstacle = 65
+        elif difficult == 2:
+            dinosaur.a = 0.9
+            ground.speed = -8
+            ptera_sprites_group.speed = -8
+            cactus_sprites_group.speed = -8
+            refresh_obstacle = 60
+        elif difficult == 3:
+            dinosaur.a = 0.95
+            ground.speed = -9
+            ptera_sprites_group.speed = -9
+            cactus_sprites_group.speed = -9
+            refresh_obstacle = 55
+        elif difficult == 4:
+            dinosaur.a = 1
+            ground.speed = -10
+            ptera_sprites_group.speed = -10
+            cactus_sprites_group.speed = -10
+            refresh_obstacle = 50
 
         screen.fill(BACKGROUND_COLOR)
 
@@ -224,13 +336,15 @@ while repeat:
         if len(ptera_sprites_group) < 5 and refresh_obstacle_count >= refresh_obstacle:
             generate = random.randint(1, 100)
             if generate == 6:
-                ptera_sprites_group.add(Ptera(image_ptera_0, image_ptera_1, (SCREENSIZE[0], random.randint(120, 235))))
+                ptera_sprites_group.add(
+                    Ptera(image_ptera_0, image_ptera_1, (SCREENSIZE[0], random.randint(120, 235))))
                 refresh_obstacle_count = 0
 
         if len(cactus_sprites_group) < 5 and refresh_obstacle_count >= refresh_obstacle:
             generate = random.randint(1, 50)
             if generate == 6:
-                magnitude = random.choice((image_cactus_1, image_cactus_2, image_cactus_3, image_cactus_4, image_cactus_5, image_cactus_6))
+                magnitude = random.choice((image_cactus_1, image_cactus_2, image_cactus_3, image_cactus_4,
+                                           image_cactus_5, image_cactus_6))
                 refresh_obstacle_count = 0
                 if magnitude == image_cactus_1:
                     cactus_sprites_group.add(Cactus(magnitude, (SCREENSIZE[0], 192)))
@@ -244,19 +358,16 @@ while repeat:
             if cactus.rect.right <= 0:
                 cactus_sprites_group.remove(cactus)
 
-        scoreboard.score = ground.distance//50
-        if scoreboard.score and not scoreboard.score % 100:
-            pygame.mixer.Sound('C:/Users/86153/Desktop/校企联培/作业/PA3/audios/score.mp3').play()
+        cloud_sprites_group.update()
+        cloud_sprites_group.draw(screen)
 
         ground.update()
-        cloud_sprites_group.update()
         ptera_sprites_group.update()
         cactus_sprites_group.update()
         scoreboard.update()
         dinosaur.update()
 
         ground.draw(screen)
-        cloud_sprites_group.draw(screen)
         ptera_sprites_group.draw(screen)
         cactus_sprites_group.draw(screen)
         scoreboard.draw(screen)

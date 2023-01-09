@@ -15,7 +15,7 @@ class Dinosaur(pygame.sprite.Sprite):
         self.refresh_counter = 0
         self.refresh_rate = 10
         self.up_speed = 0
-        self.a = 1
+        self.a = 0.8
         self.end_position = self.rect.bottom
         self.mask = pygame.mask.from_surface(self.image)
 

@@ -14,7 +14,7 @@ class Ground(pygame.sprite.Sprite):
         self.rect_1 = self.image_1.get_rect()
         self.rect_1.left, self.rect_1.bottom = self.rect_0.right, self.rect_0.bottom
 
-        self.speed = -10
+        self.speed = -6
         self.distance = 0
 
     def draw(self, screen):
@@ -53,3 +53,21 @@ class Cloud(pygame.sprite.Sprite):
             pygame.sprite.Sprite.kill(self)
 
 
+class Moon(pygame.sprite.Sprite):
+
+    def __init__(self, images, position):
+        pygame.sprite.Sprite.__init__(self)
+        self.images = images
+        self.image_count = 0
+        self.image = self.images[self.image_count]
+        self.rect = self.image.get_rect()
+        self.rect.top, self.rect.left = position
+
+        self.speed = -4
+        self.exist = True
+
+    def update(self):
+        self.rect.left += self.speed
+
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)

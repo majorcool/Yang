@@ -33,6 +33,7 @@ pygame.init()
 screen = pygame.display.set_mode(SCREENSIZE)
 pygame.display.set_caption(TITLE)
 clock = pygame.time.Clock()
+pygame.key.set_repeat(50)
 IMAGE_PATHS = {
     'ground': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/ground.png',
     'cloud': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/cloud.png',
@@ -100,9 +101,10 @@ moon = Moon(image_moon_list, (random.randint(0, 700), 50))
 
 image_ground = pygame.image.load(IMAGE_PATHS['ground'])
 image_ground_reverse = reverse_color(image_ground)
-ground = Ground(image_ground, (0, SCREENSIZE[1]))
+ground = Ground(image_ground, image_ground_reverse, (0, SCREENSIZE[1]))
 
 image_cloud = pygame.image.load(IMAGE_PATHS['cloud'])
+image_cloud_reverse = reverse_color(image_cloud)
 cloud_sprites_group = pygame.sprite.Group()
 
 image_ptera_0 = pygame.image.load(IMAGE_PATHS['ptera1'])
@@ -138,7 +140,7 @@ image_dinosaur_reverse.append(reverse_color(image_dinosaur_4))
 image_dinosaur_reverse.append(reverse_color(image_dinosaur_5))
 image_dinosaur_reverse.append(reverse_color(image_dinosaur_6))
 image_dinosaur_reverse.append(reverse_color(image_dinosaur_7))
-dinosaur = Dinosaur(image_dinosaur, (0, SCREENSIZE[1]-11))
+dinosaur = Dinosaur(image_dinosaur, image_dinosaur_reverse, (0, SCREENSIZE[1]-11))
 
 image_cactus_1 = pygame.image.load(IMAGE_PATHS['cactus1'])
 image_cactus_2 = pygame.image.load(IMAGE_PATHS['cactus2'])
@@ -161,7 +163,7 @@ for i in range(0, 11):
 image_scoreboard_reverse = list()
 for i in range(0, 11):
     image_scoreboard_reverse.append(reverse_color(pygame.image.load(IMAGE_PATHS[str(i)])))
-scoreboard = Scoreboard(image_scoreboard, (SCREENSIZE[0], 0))
+scoreboard = Scoreboard(image_scoreboard, image_scoreboard_reverse, (SCREENSIZE[0], 0))
 
 image_restart = list()
 for i in range(1, 9):
@@ -169,10 +171,11 @@ for i in range(1, 9):
 image_restart_reverse = list()
 for i in range(1, 9):
     image_restart_reverse.append(reverse_color(pygame.image.load(IMAGE_PATHS['restart{}'.format(i)])))
-restart = Pause(image_restart, (350, 150))
+restart = Pause(image_restart, image_restart_reverse, (350, 150))
 
 game_over_image = pygame.image.load(IMAGE_PATHS['game_over'])
-game_over = GameOver(game_over_image)
+game_over_image_reverse = reverse_color(game_over_image)
+game_over = GameOver(game_over_image, game_over_image_reverse)
 
 process = 'begin'
 refresh_obstacle = 50
@@ -184,9 +187,11 @@ broadcasting = None
 prepare_jump = False
 repeat = True
 difficult = 0
-scene_mode = "day"
-scene_time = 2500
+scene_mode = 0  # 0代表白天，1代表黑夜
+scene_time_day = 200
+scene_time_night = 1000
 scene_time_count = 0
+scene_time = scene_time_day
 
 
 if process == 'begin':
@@ -246,28 +251,20 @@ while repeat:
                 pygame.quit()
                 sys.exit()
 
+            pygame.key.set_repeat(50)
             key_list = pygame.key.get_pressed()
-
-            # if key_list[pygame.K_DOWN] and dinosaur.state == "run" and not prepare_jump:
-            #     dinosaur.duck()
-
-            # if key_list[pygame.K_DOWN] and dinosaur.state == "jump":
-            #     dinosaur.up_speed = 20
-
-            pygame.key.set_repeat(pygame.KEYDOWN, 50)
 
             if event.type == pygame.KEYDOWN:
 
                 if event.key == pygame.K_UP or event.key == pygame.K_SPACE and (dinosaur.state == "run" or dinosaur.state == "run"):
-                    up_speed -= 7
+                    up_speed -= 2
                     up_speed = max(-20, up_speed)
                     broadcasting = "jump"
                     prepare_jump = True
 
                 if event.key == pygame.K_DOWN and (dinosaur.state == "jump" or dinosaur.state == "run"):
-                    print(dinosaur.state)
                     if dinosaur.state == "jump":
-                        dinosaur.up_speed = 20
+                        dinosaur.up_speed = 30
                     if dinosaur.end_position - dinosaur.rect.bottom <= 20:
                         dinosaur.duck()
 
@@ -317,17 +314,15 @@ while repeat:
             cactus_sprites_group.speed = -10
             refresh_obstacle = 50
 
-        screen.fill(BACKGROUND_COLOR)
-
         if len(cloud_sprites_group) < 5 and refresh_cloud_count >= refresh_cloud:
             generate = random.randint(1, 100)
             if generate == 1:
-                cloud_sprites_group.add(Cloud(image_cloud, (SCREENSIZE[0], random.randint(30, 75))))
+                cloud_sprites_group.add(Cloud(image_cloud, image_cloud_reverse, (SCREENSIZE[0], random.randint(30, 75))))
                 refresh_cloud_count = 0
         refresh_cloud_count += 1
 
         if len(cloud_sprites_group) < 1:
-            cloud_sprites_group.add(Cloud(image_cloud, (SCREENSIZE[0], random.randint(30, 75))))
+            cloud_sprites_group.add(Cloud(image_cloud, image_cloud_reverse, (SCREENSIZE[0], random.randint(30, 75))))
 
         for cloud in cloud_sprites_group:
             if cloud.rect.right <= 0:
@@ -337,7 +332,7 @@ while repeat:
             generate = random.randint(1, 100)
             if generate == 6:
                 ptera_sprites_group.add(
-                    Ptera(image_ptera_0, image_ptera_1, (SCREENSIZE[0], random.randint(120, 235))))
+                    Ptera(image_ptera_0, image_ptera_1, image_ptera_0_reverse, image_ptera_1_reverse, (SCREENSIZE[0], random.randint(120, 235))))
                 refresh_obstacle_count = 0
 
         if len(cactus_sprites_group) < 5 and refresh_obstacle_count >= refresh_obstacle:
@@ -347,27 +342,45 @@ while repeat:
                                            image_cactus_5, image_cactus_6))
                 refresh_obstacle_count = 0
                 if magnitude == image_cactus_1:
-                    cactus_sprites_group.add(Cactus(magnitude, (SCREENSIZE[0], 192)))
+                    cactus_sprites_group.add(Cactus(magnitude, reverse_color(magnitude), (SCREENSIZE[0], 192)))
                 if magnitude in (image_cactus_2, image_cactus_3):
-                    cactus_sprites_group.add(Cactus(magnitude, (SCREENSIZE[0], 195)))
+                    cactus_sprites_group.add(Cactus(magnitude, reverse_color(magnitude), (SCREENSIZE[0], 195)))
                 if magnitude in (image_cactus_4, image_cactus_5, image_cactus_6):
-                    cactus_sprites_group.add(Cactus(magnitude, (SCREENSIZE[0], 220)))
+                    cactus_sprites_group.add(Cactus(magnitude, reverse_color(magnitude), (SCREENSIZE[0], 220)))
         refresh_obstacle_count += 1
 
         for cactus in cactus_sprites_group:
             if cactus.rect.right <= 0:
                 cactus_sprites_group.remove(cactus)
 
-        cloud_sprites_group.update()
-        cloud_sprites_group.draw(screen)
+        if scene_mode == 0:
+            scene_time = scene_time_day
+            screen.fill(BACKGROUND_COLOR)
+        else:
+            scene_time = scene_time_night
+            screen.fill((20, 20, 20))
 
-        ground.update()
-        ptera_sprites_group.update()
-        cactus_sprites_group.update()
-        scoreboard.update()
-        dinosaur.update()
+        print(scene_mode)
+        print(scene_time)
+
+        if scene_time <= scene_time_count and 1 == random.randint(1, 100):
+            if scene_mode == 0:
+                scene_mode = 1
+            else:
+                scene_mode = 0
+            scene_time_count = 0
+
+        scene_time_count += 1
+
+        ground.update(scene_mode)
+        cloud_sprites_group.update(scene_mode)
+        ptera_sprites_group.update(scene_mode)
+        cactus_sprites_group.update(scene_mode)
+        scoreboard.update(scene_mode)
+        dinosaur.update(scene_mode)
 
         ground.draw(screen)
+        cloud_sprites_group.draw(screen)
         ptera_sprites_group.draw(screen)
         cactus_sprites_group.draw(screen)
         scoreboard.draw(screen)
@@ -379,7 +392,9 @@ while repeat:
         for _ in ptera_sprites_group:
             if pygame.sprite.collide_mask(dinosaur, _):
                 dinosaur.die()
-                dinosaur.update()
+                dinosaur.update(scene_mode)
+                game_over.update(scene_mode)
+                restart.judge(scene_mode)
                 pygame.display.update()
                 process = 'end'
                 break
@@ -387,14 +402,14 @@ while repeat:
         for _ in cactus_sprites_group:
             if pygame.sprite.collide_mask(dinosaur, _):
                 dinosaur.die()
-                dinosaur.update()
+                dinosaur.update(scene_mode)
+                game_over.update(scene_mode)
+                restart.judge(scene_mode)
                 pygame.display.update()
                 process = 'end'
                 break
 
         while process == "end":
-
-            screen.fill(BACKGROUND_COLOR)
 
             restart.update()
 
@@ -416,6 +431,19 @@ while repeat:
                 else:
                     f.write(str(scoreboard.high_score))
 
+            if scene_mode == 0:
+                scene_time = scene_time_day
+            else:
+                scene_time = scene_time_day
+
+            if scene_time <= scene_time_count and 1 == random.randint(1, 100):
+                if scene_mode == 0:
+                    scene_mode = 1
+                else:
+                    scene_mode = 0
+
+            scene_time_count += 1
+
             for event in pygame.event.get():
 
                 if event.type == pygame.QUIT:
@@ -431,14 +459,16 @@ while repeat:
                     image_restart = list()
                     for i in range(1, 9):
                         image_restart.append(pygame.image.load(IMAGE_PATHS['restart{}'.format(i)]))
-                    restart = Pause(image_restart, (350, 150))
+                    restart = Pause(image_restart, image_restart_reverse, (350, 150))
 
                     game_over_image = pygame.image.load(IMAGE_PATHS['game_over'])
-                    game_over = GameOver(game_over_image)
+                    game_over = GameOver(game_over_image, game_over_image_reverse)
 
                     ground.distance = 0
                     refresh_obstacle_count = 0
                     scoreboard.score = 0
+                    scene_time_count = 0
+                    scene_mode = 0
 
                     for i in cactus_sprites_group:
                         i.kill()

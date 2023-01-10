@@ -7,11 +7,12 @@ if n>2:
             print("非质数")
             b=1
             break
-if b==0:
+if b==0 and n!=1:
     print("质数")
 """elif n==1:
     print("非质数")
 elif n==2:
     print("质数")"""
-
+if n==1:
+    print("非质数")
 

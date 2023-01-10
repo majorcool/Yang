@@ -12,4 +12,4 @@ def aaa(n):
         for d in range(1,c+1):
             print(" "*d,end="")
             print("*" * (n-2*d))
-aaa("7")
+aaa("9")

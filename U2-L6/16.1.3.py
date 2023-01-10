@@ -1,7 +1,7 @@
  #  定义一个函数，参数为一个矩阵（二维列表）matrix，返回对角线所有元素的和
  #  如果出现重复的中心元素，只计算一次
 
-def matrix_diagonal_sum(matrix:list):
+def matrix_diagonal_sum(matrix:list[list[int]]) ->int:
     sum = 0
     if len(matrix) % 2 == 0:
         for i in range(0,len(matrix)):

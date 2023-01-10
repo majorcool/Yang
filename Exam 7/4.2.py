@@ -44,7 +44,7 @@ class Trainer(Manager):
             self.performance -= 20
 
     def perform(self ,n:Animal):
-        Animal.increase(n, -20)
+        n.increase(-20)  # Animal.increase(n, -20)类方法
 
 def everyday():
     dog = Animal(100, "dog")

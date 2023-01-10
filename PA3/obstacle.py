@@ -3,9 +3,11 @@ import pygame
 
 class Cactus(pygame.sprite.Sprite):
 
-    def __init__(self, image, position):
+    def __init__(self, image, reverse_image, position):
         pygame.sprite.Sprite.__init__(self)
         self.image = image
+        self.images_day = image
+        self.images_night = reverse_image
         self.state = True
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = position
@@ -16,18 +18,27 @@ class Cactus(pygame.sprite.Sprite):
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
-    def update(self):
+    def update(self, mode):
         self.rect.left += self.speed
         if self.rect.right < 0:
             self.kill()
 
+        if mode == 0:
+            self.image = self.images_day
+        else:
+            self.image = self.images_night
+
 
 class Ptera(pygame.sprite.Sprite):
 
-    def __init__(self, image0, image1, position):
+    def __init__(self, image0, image1, image0_reverse, image1_reverse, position):
         pygame.sprite.Sprite.__init__(self)
         self.image_0 = image0
         self.image_1 = image1
+        self.image_0_day = image0
+        self.image_1_day = image1
+        self.image_0_night = image0_reverse
+        self.image_1_night = image1_reverse
         self.image = self.image_0
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = position
@@ -53,7 +64,7 @@ class Ptera(pygame.sprite.Sprite):
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
-    def update(self):
+    def update(self, mode):
         if self.refresh_counter == self.refresh_rate:
             self.refresh()
             self.refresh_counter = 0
@@ -63,5 +74,12 @@ class Ptera(pygame.sprite.Sprite):
         if self.rect.right < 0:
             self.state = False
             self.kill()
+
+        if mode == 0:
+            self.image_0 = self.image_0_day
+            self.image_1 = self.image_1_day
+        else:
+            self.image_0 = self.image_0_night
+            self.image_1 = self.image_1_night
 
 

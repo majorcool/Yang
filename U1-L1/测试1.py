@@ -30,8 +30,11 @@ while n<30:
     if n>=0 and n<=100:
         for a in range(0,30):
             s=s+n
+            break
 b=s/30
-print(b)
+print(b)efifiefj[efjfjn[n vnieinefi
+ein kkfkkefkknznkjjdjwd
+]]
 
 
 

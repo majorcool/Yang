@@ -1,6 +1,0 @@
-name=input("请输入姓名:")
-gender=input("请输入性别:")
-num=input("请输入手机号:")
-Morow=input("请输入颜值:")
-deposit=input("请输入存款:")
-print(name,gender,num,Morow,deposit)

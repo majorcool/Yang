@@ -22,6 +22,6 @@ class C(B):
         print(self.Z)
 
 
-a = A()#a能调用class A(get_X)的所有方法
-b = B()#b能调用class B(get_Y)和class A(get_X)的所有方法
-c = C()#c能调用class A(get_X)和class B(get_Y)和class C(get_Z)的所有方法
+a = A()  # a能调用class A(get_X)的所有方法
+b = B()  # b能调用class B(get_Y)和class A(get_X)的所有方法
+c = C()  # c能调用class A(get_X)和class B(get_Y)和class C(get_Z)的所有方法

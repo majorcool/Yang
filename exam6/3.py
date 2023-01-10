@@ -10,3 +10,9 @@ def perms(l:list):
                             list1.append((a,b,c,d,e))
     return list1
 print(perms([1,2,3,4,5]))
+
+import itertools
+def aa(a:list):
+    return len(list(itertools.combinations(a,len(a)-1)))
+
+print(aa([1,2,3,4,5]))

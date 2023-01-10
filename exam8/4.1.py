@@ -2,11 +2,8 @@
 # 全字母短句，是指一个句子中包含所有的英文字母（小写 a-z）
 def judge(n:str):
     alpha = 'abcdefghijklmnopqrstuvwxyz'
-    if n.isalpha():
-        for i in n:
-            if i not in alpha:
-                return False
-            return True
+    if len(set(n)) == 26:
+        return True
     else:
         return False
 

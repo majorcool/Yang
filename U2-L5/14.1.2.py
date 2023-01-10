@@ -22,7 +22,7 @@ class User:
 class Vip(User):
 
     def __init__(self, vip_level:int=1):
-        super().__init__()
+        super()
         self.vip_level = vip_level
 
     def get_info(self):

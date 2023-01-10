@@ -1,3 +1,1 @@
-a = b = []
-a = 2
-print(a)
+print('pip list')

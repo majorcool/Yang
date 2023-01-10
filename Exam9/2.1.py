@@ -5,14 +5,12 @@ class except1(Exception):
     pass
 
 def define1(n):
-    if n == 5:
-        raise except1
-    return 'return'
+    return 2
 
 try:
-    print(define1(3))
+    print(define1())
 
-except except1:
+except Exception:
     pass
 finally:
     print('finally')#若打出finally则表示先执行finally；否则先执行define

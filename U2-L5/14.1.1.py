@@ -5,7 +5,8 @@ class People:
     def talk(self):
         print('Ahhhh')
 class Infant(People):
-    pass
+    def talk(self):
+        pass
 
 a=People()
 a.talk()

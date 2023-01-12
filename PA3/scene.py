@@ -53,7 +53,7 @@ class Cloud(pygame.sprite.Sprite):
         self.images_day = image
         self.images_night = reverse_image
 
-        self.speed = -3
+        self.speed = -2
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -69,17 +69,37 @@ class Cloud(pygame.sprite.Sprite):
             self.image = self.images_night
 
 
+class Stars(pygame.sprite.Sprite):
+
+    def __init__(self, image, position):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.bottom = position
+
+        self.speed = -2
+
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
+
+    def update(self):
+        self.rect.left += self.speed
+        if self.rect.right <= 0:
+            pygame.sprite.Sprite.kill(self)
+
+
 class Moon(pygame.sprite.Sprite):
 
     def __init__(self, images, position):
         pygame.sprite.Sprite.__init__(self)
         self.images = images
-        self.image_count = 0
+        self.image_count = -1
         self.image = self.images[self.image_count]
         self.rect = self.image.get_rect()
-        self.rect.top, self.rect.left = position
+        self.rect.left, self.rect.top = position
 
-        self.speed = -4
+        self.speed = -1
         self.exist = True
 
     def update(self):
@@ -87,3 +107,7 @@ class Moon(pygame.sprite.Sprite):
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
+
+    def renew(self):
+        self.image = self.images[self.image_count]
+        self.rect = self.image.get_rect()

@@ -1,5 +1,4 @@
 import random
-
 import pygame
 import sys
 from obstacle import Ptera
@@ -11,9 +10,10 @@ from dinosaur import Dinosaur
 from set_system import Pause
 from set_system import GameOver
 from scene import Moon
+from scene import Stars
 
 
-def reverse_color(image):
+def reverse_color(image):  # 夜间模式反色处理
     image_reverse = image.copy()
     width, height = image_reverse.get_size()
     for pos in [(x, y) for x in range(width) for y in range(height)]:
@@ -25,6 +25,7 @@ def reverse_color(image):
     return image_reverse
 
 
+#  循环变量
 FPS = 60
 TITLE = 'Chrome Dino'
 BACKGROUND_COLOR = (235, 235, 235)
@@ -37,8 +38,8 @@ pygame.key.set_repeat(50)
 IMAGE_PATHS = {
     'ground': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/ground.png',
     'cloud': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/cloud.png',
-    'ptera1': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/pterodactyl1.png',
-    'ptera2': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/pterodactyl2.png',
+    'ptera1': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/pterodactyl-1.png',
+    'ptera2': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/pterodactyl-2.png',
     'cactus1': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/Cactus1.png',
     'cactus2': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/Cactus2.png',
     'cactus3': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/Cactus3.png',
@@ -56,8 +57,8 @@ IMAGE_PATHS = {
     '8': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-8.png',
     '9': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-9.png',
     '10': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/scoreboard-10.png',
-    'dinosaur0': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur1.png',
-    'dinosaur1': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur2.png',
+    'dinosaur0': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur-run-1.png',
+    'dinosaur1': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur-run-2.png',
     'dinosaur2': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur-die-1.png',
     'dinosaur3': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur-die-2.png',
     'dinosaur4': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/dinosaur-duck-1.png',
@@ -80,8 +81,13 @@ IMAGE_PATHS = {
     'moon5': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/moon-5.png',
     'moon6': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/moon-6.png',
     'moon7': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/moon-7.png',
+    'star1': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/star-1.png',
+    'star2': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/star-2.png',
+    'star3': 'C:/Users/86153/Desktop/校企联培/作业/PA3/images/star-3.png',
 }
 
+
+#  图像载入和实例化
 image_moon_1 = pygame.image.load(IMAGE_PATHS['moon1'])
 image_moon_2 = pygame.image.load(IMAGE_PATHS['moon2'])
 image_moon_3 = pygame.image.load(IMAGE_PATHS['moon3'])
@@ -99,6 +105,11 @@ image_moon_list.append(image_moon_6)
 image_moon_list.append(image_moon_7)
 moon = Moon(image_moon_list, (random.randint(0, 700), 50))
 
+image_star_1 = pygame.image.load(IMAGE_PATHS['star1'])
+image_star_2 = pygame.image.load(IMAGE_PATHS['star2'])
+image_star_3 = pygame.image.load(IMAGE_PATHS['star3'])
+stars_sprites_group = pygame.sprite.Group()
+
 image_ground = pygame.image.load(IMAGE_PATHS['ground'])
 image_ground_reverse = reverse_color(image_ground)
 ground = Ground(image_ground, image_ground_reverse, (0, SCREENSIZE[1]))
@@ -112,7 +123,6 @@ image_ptera_1 = pygame.image.load(IMAGE_PATHS['ptera2'])
 ptera_sprites_group = pygame.sprite.Group()
 image_ptera_0_reverse = reverse_color(image_ptera_0)
 image_ptera_1_reverse = reverse_color(image_ptera_1)
-ptera_sprites_group_reverse = pygame.sprite.Group()
 
 image_dinosaur_0 = pygame.image.load((IMAGE_PATHS['dinosaur0']))
 image_dinosaur_1 = pygame.image.load((IMAGE_PATHS['dinosaur1']))
@@ -155,7 +165,6 @@ image_cactus_3_reverse = reverse_color(image_cactus_3)
 image_cactus_4_reverse = reverse_color(image_cactus_4)
 image_cactus_5_reverse = reverse_color(image_cactus_5)
 image_cactus_6_reverse = reverse_color(image_cactus_6)
-cactus_sprites_group_reverse = pygame.sprite.Group()
 
 image_scoreboard = list()
 for i in range(0, 11):
@@ -177,11 +186,15 @@ game_over_image = pygame.image.load(IMAGE_PATHS['game_over'])
 game_over_image_reverse = reverse_color(game_over_image)
 game_over = GameOver(game_over_image, game_over_image_reverse)
 
+
+#  循环判断变量
 process = 'begin'
 refresh_obstacle = 50
 refresh_obstacle_count = 0
 refresh_cloud = 50
 refresh_cloud_count = 0
+refresh_stars = 50
+refresh_stars_count = 0
 up_speed = -6
 broadcasting = None
 prepare_jump = False
@@ -194,9 +207,7 @@ scene_time_count = 0
 scene_time = scene_time_day
 
 
-if process == 'begin':
-    dinosaur.rect.top += 0
-
+#  开始界面，不参与大循环，只执行一次
 while process == 'begin':
 
     dinosaur.start()
@@ -232,14 +243,18 @@ while process == 'begin':
                 prepare_jump = False
                 process = "start"
 
-if process == 'start':
-    scene_time_count = 0
-    scene_mode = 0
 
+#  游戏中和结束的循环
 while repeat:
+
+    if process == 'start':
+        scene_time_count = 0
+        scene_mode = 0
+        moon.image_count = -1
 
     while process == 'start':
 
+        #  键盘捕捉
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 with open('data/high_score.py', 'w') as f:
@@ -251,12 +266,12 @@ while repeat:
                 pygame.quit()
                 sys.exit()
 
-            pygame.key.set_repeat(50)
             key_list = pygame.key.get_pressed()
 
             if event.type == pygame.KEYDOWN:
 
-                if event.key == pygame.K_UP or event.key == pygame.K_SPACE and (dinosaur.state == "run" or dinosaur.state == "run"):
+                #  根据按键盘时间增加初速度，根据vf=vi+gt进行计算每帧的下落速度，再将下落速度与距离相加
+                if (event.key == pygame.K_UP or event.key == pygame.K_SPACE) and (dinosaur.state == "run" or dinosaur.state == "jump"):
                     up_speed -= 2
                     up_speed = max(-20, up_speed)
                     broadcasting = "jump"
@@ -265,7 +280,7 @@ while repeat:
                 if event.key == pygame.K_DOWN and (dinosaur.state == "jump" or dinosaur.state == "run"):
                     if dinosaur.state == "jump":
                         dinosaur.up_speed = 30
-                    if dinosaur.end_position - dinosaur.rect.bottom <= 20:
+                    if dinosaur.end_position - dinosaur.rect.bottom <= 30:  # 直接进行判断，避免重复循环，可减小1帧的时间误差
                         dinosaur.duck()
 
             elif event.type == pygame.KEYUP:
@@ -278,10 +293,12 @@ while repeat:
                 if dinosaur.state == "duck" and not key_list[pygame.K_DOWN]:
                     dinosaur.unduck()
 
+        #  scoreboard计分
         scoreboard.score = ground.distance//50
         if scoreboard.score and not scoreboard.score % 100:
             pygame.mixer.Sound('C:/Users/86153/Desktop/校企联培/作业/PA3/audios/score.mp3').play()
 
+        #  难度调试
         difficult = min(4, ground.distance//10000)  # 200切难度
         if difficult == 0:
             dinosaur.a = 0.8
@@ -314,6 +331,7 @@ while repeat:
             cactus_sprites_group.speed = -10
             refresh_obstacle = 50
 
+        #  实例化和刷新部分精灵
         if len(cloud_sprites_group) < 5 and refresh_cloud_count >= refresh_cloud:
             generate = random.randint(1, 100)
             if generate == 1:
@@ -342,7 +360,7 @@ while repeat:
                                            image_cactus_5, image_cactus_6))
                 refresh_obstacle_count = 0
                 if magnitude == image_cactus_1:
-                    cactus_sprites_group.add(Cactus(magnitude, reverse_color(magnitude), (SCREENSIZE[0], 192)))
+                    cactus_sprites_group.add(Cactus(magnitude, reverse_color(magnitude), (SCREENSIZE[0], 193)))
                 if magnitude in (image_cactus_2, image_cactus_3):
                     cactus_sprites_group.add(Cactus(magnitude, reverse_color(magnitude), (SCREENSIZE[0], 195)))
                 if magnitude in (image_cactus_4, image_cactus_5, image_cactus_6):
@@ -353,25 +371,69 @@ while repeat:
             if cactus.rect.right <= 0:
                 cactus_sprites_group.remove(cactus)
 
+        #  夜间模式切换和基础背景设置
         if scene_mode == 0:
             scene_time = scene_time_day
             screen.fill(BACKGROUND_COLOR)
         else:
             scene_time = scene_time_night
             screen.fill((20, 20, 20))
+            moon.update()
 
-        print(scene_mode)
-        print(scene_time)
+            if moon.rect.right <= 0:
+                moon.rect.left = SCREENSIZE[0]
+                moon.rect.top = 30
 
-        if scene_time <= scene_time_count and 1 == random.randint(1, 100):
+            if len(stars_sprites_group) < 5 and refresh_stars_count >= refresh_stars:
+                generate = random.randint(1, 100)
+                if generate == 1:
+                    stars_sprites_group.add(
+                        Stars(random.choice((image_star_1, image_star_2, image_star_3)), (SCREENSIZE[0], random.randint(30, 120))))
+                    refresh_stars_count = 0
+            refresh_stars_count += 1
+
+            if len(stars_sprites_group) < 1:
+                stars_sprites_group.add(
+                    Stars(random.choice((image_star_1, image_star_2, image_star_3)), (SCREENSIZE[0], random.randint(30, 120))))
+
+            for star in stars_sprites_group:
+                if star.rect.right <= 0:
+                    cloud_sprites_group.remove(star)
+
+            stars_sprites_group.update()
+
+            moon.draw(screen)
+            stars_sprites_group.draw(screen)
+
+        if scene_time <= scene_time_count and 1 == random.randint(1, 100):  # 刷新方式与障碍物一样，隔时间随机刷新
             if scene_mode == 0:
                 scene_mode = 1
+
+                moon.image_count = (moon.image_count + 1) % 7
+                moon.renew()
+                moon.rect.left = random.randint(0, 700)
+                moon.rect.top = 30
+
+                for i in stars_sprites_group:
+                    i.rect.left = random.randint(0, 700)
+                    i.rect.top = random.randint(30, 120)
+                if len(stars_sprites_group) < 1:
+                    stars_sprites_group.add(
+                        Stars(random.choice((image_star_1, image_star_2, image_star_3)),
+                              (random.randint(0, 700), random.randint(30, 120))))
+
             else:
                 scene_mode = 0
+
+                moon.rect.right = -100  # 将月亮和星星移到图外
+                for star in stars_sprites_group:
+                    star.rect.right = -100
+
             scene_time_count = 0
 
         scene_time_count += 1
 
+        # 刷新精灵
         ground.update(scene_mode)
         cloud_sprites_group.update(scene_mode)
         ptera_sprites_group.update(scene_mode)
@@ -389,6 +451,7 @@ while repeat:
         pygame.display.update()
         clock.tick(FPS)
 
+        # 碰撞检测
         for _ in ptera_sprites_group:
             if pygame.sprite.collide_mask(dinosaur, _):
                 dinosaur.die()
@@ -396,6 +459,10 @@ while repeat:
                 game_over.update(scene_mode)
                 restart.judge(scene_mode)
                 pygame.display.update()
+                if scene_mode == 0:
+                    screen.fill(BACKGROUND_COLOR)
+                else:
+                    screen.fill((20, 20, 20))
                 process = 'end'
                 break
 
@@ -406,12 +473,16 @@ while repeat:
                 game_over.update(scene_mode)
                 restart.judge(scene_mode)
                 pygame.display.update()
+                if scene_mode == 0:
+                    screen.fill(BACKGROUND_COLOR)
+                else:
+                    screen.fill((20, 20, 20))
                 process = 'end'
                 break
 
         while process == "end":
-
-            restart.update()
+            if restart.image_count < 7:
+                restart.update()
 
             ground.draw(screen)
             cloud_sprites_group.draw(screen)
@@ -421,6 +492,7 @@ while repeat:
             dinosaur.draw(screen)
             restart.draw(screen)
             game_over.draw(screen)
+            moon.draw(screen)
 
             pygame.display.update()
             clock.tick(FPS)
@@ -430,19 +502,6 @@ while repeat:
                     f.write(str(scoreboard.score))
                 else:
                     f.write(str(scoreboard.high_score))
-
-            if scene_mode == 0:
-                scene_time = scene_time_day
-            else:
-                scene_time = scene_time_day
-
-            if scene_time <= scene_time_count and 1 == random.randint(1, 100):
-                if scene_mode == 0:
-                    scene_mode = 1
-                else:
-                    scene_mode = 0
-
-            scene_time_count += 1
 
             for event in pygame.event.get():
 
@@ -454,6 +513,7 @@ while repeat:
                 key_list = pygame.key.get_pressed()
 
                 if event.type == pygame.MOUSEBUTTONDOWN or key_list[pygame.K_SPACE] or key_list[pygame.K_UP]:
+                    # 全部刷新
                     del game_over
                     del restart
                     image_restart = list()

@@ -52,12 +52,8 @@ class Ptera(pygame.sprite.Sprite):
 
     def refresh(self):
         if self.image == self.image_0:
-            self.rect.top -= 14
-            self.rect.left += 5
             self.image = self.image_1
         else:
-            self.rect.top += 14
-            self.rect.left -= 5
             self.image = self.image_0
         self.mask = pygame.mask.from_surface(self.image)
 

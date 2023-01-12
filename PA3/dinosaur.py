@@ -63,10 +63,8 @@ class Dinosaur(pygame.sprite.Sprite):
 
     def refresh(self):
         if self.image == self.images[0]:
-            self.rect.left -= 1
             self.image = self.images[1]
         else:
-            self.rect.left += 1
             self.image = self.images[0]
         self.mask = pygame.mask.from_surface(self.image)
 
